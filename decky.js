@@ -87,7 +87,7 @@ var decky = (function () {
     });
 
     api.onSlideChange(current);
-    if (!notified) {
+    if (!notified && speaker) {
       speaker.postMessage({type: 'goto', num: current});
       if (window.top !== window) {
         window.top.postMessage({
@@ -106,10 +106,13 @@ var decky = (function () {
   }
   api.fullScreen = toggleFullScreen;
 
-  var speaker = new BroadcastChannel("speaker");
+  if (BroadcastChannel in window) {
+    var speaker = new BroadcastChannel("speaker");
 
-  speaker.onmessage = handleMessage;
-  window.onmessage = handleMessage;
+    speaker.onmessage = handleMessage;
+    window.onmessage = handleMessage;
+  }
+
 
   function handleMessage(event) {
     var msg = event.data;
