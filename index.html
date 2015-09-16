@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Beyond The Wall: Web Workers</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="decky.css">
+    <link rel="stylesheet" href="solarized_light.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="highlight.min.js"></script>
+  </head>
+  <body>
+    <section>
+      <img class="cover" src="img/thewall.jpg">
+      <div style="position: relative; z-index: 1">
+      <h1>Web Workers</h1>
+      <h2>Beyond The Wall</h2>
+      </div>
+    </section>
+    <section>
+      <img class="cover" src="img/thewall.jpg">
+      <img style="position: relative; z-index: 1" src="img/me-wontfix.jpg">
+    </section>
+    <section>
+      <img class="cover" src="img/thewall.jpg">
+      <img style="position: relative; z-index: 1" src="img/mozilla_wordmark.svg">
+    </section>
+    <section>
+      <h1>"Native" feeling apps</h1>
+    </section>
+    <section>
+      <h1>"Native" = "Not Web"</h1>
+    </section>
+    <section>
+      <h1>60fps</h1>
+    </section>
+    <section>
+      <h1><i class="fa fa-clock-o"></i> 16ms</h1>
+    </section>
+    <section>
+      <div style="height: 80%;width:70%;background-image:url(img/beachball.gif);background-size:cover;"></div>
+    </section>
+    <section>
+      <div style="height: 80%;width:70%;background-image:url(img/beachball.gif);background-size:cover;background-position:center"></div>
+    </section>
+    <section>
+      <div style="height: 80%;width:70%;background-image:url(img/beachball.gif);background-size:cover;background-position:bottom center"></div>
+    </section>
+    <section>
+      <h2>Hardware acceleration</h2>
+    </section>
+    <section>
+      <h2>translateZ(0)</h2>
+    </section>
+    <section>
+      <h2>will-change</h2>
+    </section>
+    <section>
+      <q>In particular, never use the main thread to perform long-running or potentially unbounded tasks, such as tasks that require network access. Instead, always move those tasks onto background threads.</q>
+      <cite>&mdash;Apple Developer Guide</cite>
+    </section>
+    <section>
+      <q>Because of the single thread model described above, it's vital to the responsiveness of your application's UI that you do not block the UI thread.</q>
+      <cite>&mdash;Android Developer Guide</cite>
+    </section>
+    <section>
+      <h2>In the Web Platform, the Main thread is also the UI thread.</h2>
+    </section>
+    <section>
+      <h1>Web Workers</h1>
+    </section>
+    <section>
+      <h1 class="position: relative;">
+        <div class="fa-stack fa" style="font-size:2em;color:#c00;">
+          <i class="fa fa-star fa-stack-2x fa-rotate-270"></i>
+          <i class="fa fa-star fa-stack-2x fa-rotate-90"></i>
+        </div>
+        <div style="color:white; position: absolute; top: 35%;left:4%;bottom:0;right:0;margin:auto;transform:rotate(-10deg);margin:0;">New!</div>
+      </h1>
+    </section>
+    <section>
+      <h1 class="position: relative;">
+        <div class="fa-stack fa" style="font-size:2em;color:#c00;">
+          <i class="fa fa-star fa-stack-2x fa-rotate-270"></i>
+          <i class="fa fa-star fa-stack-2x fa-rotate-90"></i>
+        </div>
+        <div style="color:white; position: absolute; top: 35%;left:3.5%;bottom:0;right:0;margin:auto;transform:rotate(-10deg);margin:0;">New?</div>
+      </h1>
+    </section>
+    <section>
+      <iframe class="cani" src="http://caniuse.com/webworkers/embed/"></iframe>
+    </section>
+    <section>
+      <h1><code>Worker</code></h1>
+    </section>
+    <section>
+      <h2><code>var w = new Worker(url)</code></h2>
+    </section>
+    <section>
+      <code>w.postMessage(data)</code>
+    </section>
+    <section>
+      <code>w.addEventListener('message', handler)</code>
+    </section>
+    <section>
+      <code>function handler(e) { /*e.data*/ }</code>
+    </section>
+    <section>
+      <h1>No Shared State</h1>
+    </section>
+    <section>
+      <h1><blink>NO DOM!</blink></h1>
+    </section>
+    <section>
+      <img src="img/nodom.gif">
+    </section>
+    <section>
+      <h2>What <em>can</em> you do?</h2>
+    </section>
+    <section>
+      <h2>DedicatedWorkerGlobalScope</h2>
+    </section>
+    <section>
+      <h2>like <code>window</code>, for Workers</h2>
+    </section>
+    <section>
+      <img src="img/windowworkgroups.jpg">
+    </section>
+    <section>
+      <h3><code>postMessage(data)</code></h3>
+    </section>
+    <section>
+      <h3><code>addEventListener('message')</code></h3>
+    </section>
+    <section>
+      <h2>XMLHttpRequest</h2>
+      <div>(fetch)</div>
+    </section>
+    <section>
+      <h2>WebSocket</h2>
+    </section>
+    <section>
+      <h2>IndexedDB</h2>
+    </section>
+    <section>
+      <img src="img/diagram.png">
+    </section>
+    <section>
+      <h2><code>importScripts()</code></h2>
+      <div class="hide">&lt;script>&lt;/script></div>
+      <div class="hide">&lt;script>&lt;/script></div>
+      <div class="hide">&lt;script>&lt;/script></div>
+    </section>
+    <section>
+      <h2><code>importScripts()</code></h2>
+      <div>&lt;script>&lt;/script></div>
+      <div class="hide">&lt;script>&lt;/script></div>
+      <div class="hide">&lt;script>&lt;/script></div>
+    </section>
+    <section>
+      <h2><code>importScripts()</code></h2>
+      <div>&lt;script>&lt;/script></div>
+      <div>&lt;script>&lt;/script></div>
+      <div class="hide">&lt;script>&lt;/script></div>
+    </section>
+    <section>
+      <h2><code>importScripts()</code></h2>
+      <div>&lt;script>&lt;/script></div>
+      <div>&lt;script>&lt;/script></div>
+      <div>&lt;script>&lt;/script></div>
+    </section>
+    <section>
+      <h1>
+        <i class="fa fa-comments-o"></i>
+        Message Passing
+      </h1>
+    </section>
+    <section>
+      <h2>postMessage</h2>
+      Not quite the same as window.postMessage
+    </section>
+    <section>
+      <h2>No Shared State</h2>
+    </section>
+    <section>
+      <h1>Serialization</h1>
+      <code>postMessage(JSON.stringify(obj));</code>
+    </section>
+    <section>
+      <h1>JSON</h1>
+    </section>
+    <section>
+      <ul>
+        <li>String</li>
+        <li>Number</li>
+        <li>Object</li>
+        <li>Array</li>
+        <li>Boolean</li>
+        <li>null</li>
+      </ul>
+    </section>
+    <section>
+      <h1><s>Date</s></h1>
+    </section>
+    <section>
+      <h2>Structured Clone Algorithm</h2>
+    </section>
+    <section>
+      <img src="img/clones.jpg">
+    </section>
+    <section>
+      <ul>
+        <li>String</li>
+        <li>Number</li>
+        <li>Object</li>
+        <li>Array</li>
+        <li>Boolean</li>
+        <li>null</li>
+      </ul>
+    </section>
+    <section>
+      <ul class="cols">
+        <div>
+          <li>String</li>
+          <li>Number</li>
+          <li>Object</li>
+          <li>Array</li>
+          <li>Boolean</li>
+          <li>null</li>
+        </div>
+        <div>
+          <li>Date</li>
+          <li>RegExp</li>
+          <li>Circular References</li>
+          <li>Blob</li>
+          <li>File</li>
+          <li>ImageData</li>
+        </div>
+      </ul>
+    </section>
+    <section>
+      <h2><s>Function</s></h2>
+    </section>
+    <section>
+      <pre><code>// fibworker.js
+addEventListener('message', function (e) {
+  var n = e.data;
+  var a = 0, b = 1, f = 1;
+    for(var i = 2; i <= n; i++) {
+        f = a + b;
+        a = b;
+        b = f;
+    }
+    postMessage(f);
+});</code></pre>
+    </section>
+    <section>
+      <pre><code>// app.js
+var fibonacciWorker = new Worker('fibworker.js');
+fibonacciWorker.addEventListener('message', function (e) {
+  console.log(e.data); // result
+});
+fibonacciWorker.postMessage(20); // request</code></pre>
+    </section>
+    <section>
+      <h2>Remote Procedure Call</h2>
+    </section>
+    <section>
+      <pre><code>// interviewWorker.js
+
+addEventListener('message', function (e) {
+  var message = e.data;
+  if (message.method === 'fibonacci') {
+    postMessage(fibonacci(message.input));
+  }
+  if (message.method === 'fizzbuzz') {
+    postMessage(fizzbuzz(message.input));
+  }
+});
+
+function fibonacci (n) {
+  /* No Spoilers!! */
+}
+
+function fizzbuzz (n) {
+  /* No Spoilers!! */
+}</code></pre>
+    </section>
+    <section>
+      <pre><code>var w = new Worker('interviewWorker.js');
+
+if (question === 'fizzbuzz') {
+  w.postMessage({ method: 'fizzbuzz', input: input });
+}
+
+if (question === 'fibonacci') {
+  w.postMessage({ method: 'fibonacci', input: input });
+}</code></pre>
+    </section>
+    <section>
+      <h1>HIRED</h1>
+    </section>
+    <section>
+      <h2>Promises!</h2>
+    </section>
+    <section>
+      <pre><code>// app.js
+var remoteFibonacci = (function () {
+  var worker = new Worker('fibworker.js');
+  var callId = 0;
+  return function remoteFibonacci (n) {
+    var cId = callId;
+    return new Promise(function (resolve, reject) {
+      w.postMessage({
+        input: n,
+        callId: cId
+      });
+      w.addEventListener('message', function (e) {
+        if (e.data.callId === cId) {
+          resolve(e.data);
+        }
+      });
+    });
+    callId++
+  };
+})();</code></pre>
+    </section>
+    <section>
+      <pre><code>// fibworker.js
+addEventListener('message', function (e) {
+  var message = e.data;
+  var callId = message.callId;
+  var n = message.input;
+  var a = 0, b = 1, f = 1;
+  for(var i = 2; i <= n; i++) {
+      f = a + b;
+      a = b;
+      b = f;
+  }
+  postMessage({
+    callId: callId,
+    result: f
+  });
+});</code></pre>
+    </section>
+    <section>
+      <pre><code style="font-size: 1em;">remoteFibonacci(20).then(alert);</code></pre>
+    </section>
+    <section>
+      <pre><code>// fibworker.js
+addEventListener('message', function (e) {
+  var message = e.data;
+  var callId = message.callId;
+  var n = message.input;
+  var a = 0, b = 1, f = 1;
+  for(var i = 2; i <= n; i++) {
+      f = a + b;
+      a = b;
+      b = f;
+  }
+  setTimeout(function () {
+    postMessage({
+      callId: callId,
+      result: f
+    });
+  }, Math.random() * 10000);
+});</code></pre>
+    </section>
+    <section>
+      <h2 style="text-align: left;">
+        <div>Worker <span class="hide">+</span></div>
+        <div class="hide">RPC <span class="hide">+</span></div>
+        <div class="hide">Promise</div>
+      </h2>
+    </section>
+    <section>
+      <h2 style="text-align: left;">
+        <div>Worker +</div>
+        <div>RPC <span class="hide">+</span></div>
+        <div class="hide">Promise</div>
+      </h2>
+    </section>
+    <section>
+      <h2 style="text-align: left;">
+        <div>Worker +</div>
+        <div>RPC +</div>
+        <div>Promise</div>
+      </h2>
+    </section>
+    <section>
+      <h2>PromiseRPCWorker</h2>
+    </section>
+    <section>
+      <h2>PromiseRPCWorkerFactoryBean</h2>
+    </section>
+    <section>
+      <h2>PromiseWorker</h2>
+    </section>
+    <section>
+      <pre><code>// fibworker.js
+importScripts('promiseWorker.js');
+
+function fibonacci (n) {
+  var a = 0, b = 1, f = 1;
+  for (var i = 2; i <= n; i++) {
+    f = a + b;
+    a = b;
+    b = f;
+  }
+  return f;
+}
+
+// register comes from promiseWorker.js
+register({
+  fibonacci: fibonacci
+});</code></pre>
+    </section>
+    <section>
+      <pre><code>promiseWorker('fibworker.js').then(function (api) {
+  api.fibonacci(20).then(alert);
+});</code></pre>
+    </section>
+    <section>
+      <h2>Refactoring sucks.</h2>
+    </section>
+    <section>
+      <pre><code>function businessLogic() {
+  var n = getFoo();
+  n = frobulate(n);
+  var result = fibonacci(n);
+  showPopupWindow();
+  return result;
+}</code></pre>
+    </section>
+    <section>
+      <pre><code>function businessLogic(callback) {
+var n = getFoo();
+frobulate(n)
+  .then(fibonacci)
+  .then(function (result) {
+    showPopupWindow();
+    callback(result);
+  });
+}</code></pre>
+    </section>
+    <section>
+      <h2>ES2016 Async Functions</h2>
+    </section>
+    <section>
+      <pre><code>function businessLogic() {
+  var n = getFoo();
+  n = frobulate(n);
+  var result = fibonacci(n);
+  showPopupWindow();
+  return result;
+}</code></pre>
+    </section>
+    <section>
+      <pre><code><i>async</i> function businessLogic() {
+  var n = getFoo();
+  n = <i>await</i> frobulate(n);
+  var result = <i>await</i> fibonacci(n);
+  showPopupWindow();
+  return result;
+}</code></pre>
+    </section>
+    <section>
+      <h2>import {magic} from "future.js";</h2>
+    </section>
+    <section>
+      <img src="img/babel.svg" style="width: 60%">
+    </section>
+    <section>
+      <h2>Any non-UI operation that <i>can</i> be done in a separate thread, should.</h2>
+    </section>
+    <section>
+      <h2>Drawbacks</h2>
+    </section>
+    <section>
+      <h2>Must be separate file</h2>
+      More HTTP requests = :(
+    </section>
+    <section>
+      <pre><code class="js">function BlobWorker(fn) {
+  var code = fn.toSource();
+  var blob = new Blob(
+    [code],
+    {"type": "text/javascript"}
+  );
+  var url = URL.createObjectURL(blob);
+  return new Worker(url);
+}</code></pre>
+    </section>
+    <section>
+      <h2>DO NOT DO THIS<br><span class="hide">UNLESS YOU WANT TO THEN OKAY</span></h2>
+    </section>
+    <section>
+      <h2>DO NOT DO THIS<br> UNLESS YOU WANT TO THEN OKAY</h2>
+    </section>
+    <section>
+      <h2>Performance overhead</h2>
+    </section>
+    <section>
+      <h2>Service Workers!</h2>
+    </section>
+    <section>
+      <h2>Service Workers!</h2>
+      <img src="img/comingsoon.gif">
+    </section>
+    <section>
+      <h2>Start the multithreading today!</h2>
+    </section>
+    <section>
+      <h1>Thanks!</h1>
+      <h3>@potch &middot; github.com/potch</h3>
+    </section>
+    <footer>
+      <div class="progress talk-progress"></div>
+      <div class="progress time-progress"></div>
+    </footer>
+    <script src="decky.js"></script>
+    <script>
+      var talkProgress = document.querySelector('.talk-progress');
+      var timeProgress = document.querySelector('.time-progress');
+      var sTime;
+      var timer;
+      var going = false;
+      decky.onSlideChange = function (n) {
+        if (n > 1 && !going) {
+          going = true;
+          timer = setInterval(update, 100);
+          sTime = Date.now();
+          console.log('starting timer');
+        }
+        var pct = (n / decky.num * 100) + '%';
+        talkProgress.style.width = pct;
+      };
+      function update() {
+        var time = ((Date.now() - sTime) / (30 * 60 * 1000)) * 100 + '%';
+        timeProgress.style.width = time;
+      }
+    </script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

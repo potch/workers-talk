@@ -1,0 +1,18 @@
+{
+  "name": "workers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "babel --optional runtime src --out-dir lib",
+    "browser": "browserify lib/resize-async.js > lib/resize-async-browser.js",
+    "build": "npm run babel && npm run browser",
+    "watch": "onchange src/* -- npm run build"
+  },
+  "author": "potch",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-runtime": "^5.8.20"
+  }
+}
